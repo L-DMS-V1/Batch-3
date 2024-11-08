@@ -1,10 +1,10 @@
-package com.example.LearningAndDevelopment.login.repository;
+package com.example.LearningAndDevelopment.repository;
 
 
 
 import java.util.Optional;
 
-import com.example.LearningAndDevelopment.login.model.User;
+import com.example.LearningAndDevelopment.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

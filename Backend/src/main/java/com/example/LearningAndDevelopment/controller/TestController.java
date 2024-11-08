@@ -1,4 +1,4 @@
-package com.example.LearningAndDevelopment.login.controller;
+package com.example.LearningAndDevelopment.controller;
 
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,4 +34,3 @@ public class TestController {
         return "Admin Board.";
     }
 }
-

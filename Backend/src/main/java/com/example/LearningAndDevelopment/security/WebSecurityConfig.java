@@ -1,4 +1,4 @@
-package com.example.LearningAndDevelopment.login.security;
+package com.example.LearningAndDevelopment.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,9 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.example.LearningAndDevelopment.login.security.jwt.AuthEntryPointJwt;
-import com.example.LearningAndDevelopment.login.security.jwt.AuthTokenFilter;
-import com.example.LearningAndDevelopment.login.security.services.UserDetailsServiceImpl;
+import com.example.LearningAndDevelopment.security.jwt.AuthEntryPointJwt;
+import com.example.LearningAndDevelopment.security.jwt.AuthTokenFilter;
+import com.example.LearningAndDevelopment.security.services.UserDetailsServiceImpl;
 import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration

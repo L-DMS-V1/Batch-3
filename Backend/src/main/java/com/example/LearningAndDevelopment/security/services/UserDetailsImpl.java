@@ -1,4 +1,4 @@
-package com.example.LearningAndDevelopment.login.security.services;
+package com.example.LearningAndDevelopment.security.services;
 
 
 
@@ -11,7 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.LearningAndDevelopment.login.model.User;
+import com.example.LearningAndDevelopment.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class UserDetailsImpl implements UserDetails {

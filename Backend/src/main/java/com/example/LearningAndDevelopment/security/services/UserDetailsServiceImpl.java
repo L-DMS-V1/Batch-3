@@ -1,4 +1,4 @@
-package com.example.LearningAndDevelopment.login.security.services;
+package com.example.LearningAndDevelopment.security.services;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.LearningAndDevelopment.login.model.User;
-import com.example.LearningAndDevelopment.login.repository.UserRepository;
+import com.example.LearningAndDevelopment.model.User;
+import com.example.LearningAndDevelopment.repository.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

@@ -1,4 +1,4 @@
-package com.example.LearningAndDevelopment.login.model;
+package com.example.LearningAndDevelopment.model;
 
 public enum ERole {
     ROLE_USER,

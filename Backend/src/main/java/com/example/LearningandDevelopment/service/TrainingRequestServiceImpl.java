@@ -1,4 +1,4 @@
-package com.example.LearningAndDevelopment.service.impl;
+package com.example.LearningAndDevelopment.service;
 
 import com.example.LearningAndDevelopment.model.TrainingRequest;
 import com.example.LearningAndDevelopment.service.TrainingRequestService;

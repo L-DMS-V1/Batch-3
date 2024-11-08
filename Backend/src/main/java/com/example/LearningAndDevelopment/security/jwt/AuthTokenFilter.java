@@ -1,4 +1,4 @@
-package com.example.LearningAndDevelopment.login.security.jwt;
+package com.example.LearningAndDevelopment.security.jwt;
 
 
 
@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.LearningAndDevelopment.login.security.services.UserDetailsServiceImpl;
+import com.example.LearningAndDevelopment.security.services.UserDetailsServiceImpl;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired

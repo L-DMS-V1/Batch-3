@@ -1,4 +1,4 @@
-package com.example.LearningAndDevelopment.login.security.jwt;
+package com.example.LearningAndDevelopment.security.jwt;
 
 
 
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import com.example.LearningAndDevelopment.login.security.services.UserDetailsImpl;
+import com.example.LearningAndDevelopment.security.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

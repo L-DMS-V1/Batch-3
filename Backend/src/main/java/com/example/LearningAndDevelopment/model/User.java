@@ -1,4 +1,4 @@
-package com.example.LearningAndDevelopment.login.model;
+package com.example.LearningAndDevelopment.model;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -38,7 +38,7 @@ public class User {
     @JoinTable(  name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<com.example.LearningAndDevelopment.login.model.Role> roles = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
@@ -81,11 +81,11 @@ public class User {
         this.password = password;
     }
 
-    public Set<com.example.LearningAndDevelopment.login.model.Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<com.example.LearningAndDevelopment.login.model.Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 }

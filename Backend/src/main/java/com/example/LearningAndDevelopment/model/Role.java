@@ -1,4 +1,4 @@
-package com.example.LearningAndDevelopment.login.model;
+package com.example.LearningAndDevelopment.model;
 
 import jakarta.persistence.*;
 
@@ -11,13 +11,13 @@ public class Role {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private com.example.LearningAndDevelopment.login.model.ERole name;
+    private ERole name;
 
     public Role() {
 
     }
 
-    public Role(com.example.LearningAndDevelopment.login.model.ERole name) {
+    public Role(ERole name) {
         this.name = name;
     }
 
@@ -29,11 +29,11 @@ public class Role {
         this.id = id;
     }
 
-    public com.example.LearningAndDevelopment.login.model.ERole getName() {
+    public ERole getName() {
         return name;
     }
 
-    public void setName(com.example.LearningAndDevelopment.login.model.ERole name) {
+    public void setName(ERole name) {
         this.name = name;
     }
 }

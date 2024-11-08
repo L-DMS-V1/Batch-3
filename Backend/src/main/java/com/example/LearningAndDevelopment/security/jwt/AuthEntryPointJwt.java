@@ -1,4 +1,4 @@
-package com.example.LearningAndDevelopment.login.security.jwt;
+package com.example.LearningAndDevelopment.security.jwt;
 
 
 
