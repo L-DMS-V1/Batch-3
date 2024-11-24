@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './ManagerDashboard.css';
-import TrainingRequestForm from './TrainingRequestForm';
 
 const ManagerDashboard = () => {
   const [requests, setRequests] = useState([]);
-  const [showForm, setShowForm] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Call API to get requests
-    const requestsData = [
-      { id: 1, courseName: 'Course 1', position: 'Position 1', status: 'Pending', createdDate: '2024-11-23' },
-      { id: 2, courseName: 'Course 2', position: 'Position 2', status: 'Completed', createdDate: '2024-11-22' },
-    ];
+    const requestsData = JSON.parse(localStorage.getItem('requests')) || [];
     setRequests(requestsData);
   }, []);
 
   const handleCreateRequest = () => {
-    setShowForm(true);
+    navigate('/training-request');
   };
 
   const handleViewRequest = (id) => {
@@ -33,14 +30,21 @@ const ManagerDashboard = () => {
       </nav>
       <div className="request-summary">
         <h2>Request Summary</h2>
-        <p>Total Requests: {requests.length}</p>
-        <p>Completed Requests: {requests.filter((request) => request.status === 'Completed').length}</p>
-        <p>Pending Requests: {requests.filter((request) => request.status === 'Pending').length}</p>
+        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+          <div>
+            <span>Total Requests:</span> {requests.length}
+          </div>
+          <div>
+            <span>Completed Requests:</span> {requests.filter((request) => request.status === 'Completed').length}
+          </div>
+          <div>
+            <span>Pending Requests:</span> {requests.filter((request) => request.status === 'Pending').length}
+          </div>
+        </div>
       </div>
       <button className="create-request-button" onClick={handleCreateRequest}>
         CREATE REQUEST
       </button>
-      {showForm && <TrainingRequestForm />}
       <table className="requests-table">
         <thead>
           <tr>

@@ -2,41 +2,76 @@ import React, { useState } from 'react';
 import './TrainingRequestForm.css';
 
 const TrainingRequestForm = () => {
-  const [username, setUsername] = useState('');
-  const [courseName, setCourseName] = useState('');
-  const [description, setDescription] = useState('');
-  const [concepts, setConcepts] = useState('');
-  const [duration, setDuration] = useState('');
-  const [employeePosition, setEmployeePosition] = useState('');
+  const [trainingRequests, setTrainingRequests] = useState({
+    username: '',
+    courseName: '',
+    description: '',
+    concepts: '',
+    duration: '',
+    employeePosition: '',
+  });
 
-  const handleSubmit = (event) => {
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setTrainingRequests((prevRequests) => ({ ...prevRequests, [name]: value }));
+  };
+
+  const handleFormSubmit = (event) => {
     event.preventDefault();
     // Call API to submit training request
-    console.log('Training request submitted');
+    console.log('Training request submitted:', trainingRequests);
   };
 
   return (
     <div className="training-request-container">
-      <h1>Training Request Form</h1>
       <div className="form-container">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleFormSubmit}>
+         <h1 style={{ color: '#6a11cb' }}>Training Request Form</h1>
           <label>Username:</label>
-          <input type="text" value={username} onChange={(event) => setUsername(event.target.value)} />
+          <input
+            type="text"
+            name="username"
+            value={trainingRequests.username}
+            onChange={handleInputChange}
+          />
           <br />
           <label>Course Name:</label>
-          <input type="text" value={courseName} onChange={(event) => setCourseName(event.target.value)} />
+          <input
+            type="text"
+            name="courseName"
+            value={trainingRequests.courseName}
+            onChange={handleInputChange}
+          />
           <br />
           <label>Description:</label>
-          <textarea value={description} onChange={(event) => setDescription(event.target.value)} />
+          <textarea
+            name="description"
+            value={trainingRequests.description}
+            onChange={handleInputChange}
+          />
           <br />
           <label>Concepts:</label>
-          <textarea value={concepts} onChange={(event) => setConcepts(event.target.value)} />
+          <textarea
+            name="concepts"
+            value={trainingRequests.concepts}
+            onChange={handleInputChange}
+          />
           <br />
           <label>Duration:</label>
-          <input type="text" value={duration} onChange={(event) => setDuration(event.target.value)} />
+          <input
+            type="text"
+            name="duration"
+            value={trainingRequests.duration}
+            onChange={handleInputChange}
+          />
           <br />
           <label>Employee Position:</label>
-          <input type="text" value={employeePosition} onChange={(event) => setEmployeePosition(event.target.value)} />
+          <input
+            type="text"
+            name="employeePosition"
+            value={trainingRequests.employeePosition}
+            onChange={handleInputChange}
+          />
           <br />
           <button type="submit">Submit Request</button>
         </form>

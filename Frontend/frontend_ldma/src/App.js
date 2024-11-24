@@ -13,9 +13,11 @@ import FeedbackCollection from './components/Module5/FeedbackCollection';
 
 const App = () => {
   const [role, setRole] = React.useState('');
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
   const handleRole = (role) => {
     setRole(role);
+    setIsLoggedIn(true);
   };
 
   return (
@@ -26,31 +28,31 @@ const App = () => {
         <Route path="/signup" element={<Signup handleRole={handleRole} />} />
         <Route
           path="/manager-dashboard"
-          element={role === 'Manager' ? <ManagerDashboard /> : <Navigate to="/" replace />}
+          element={isLoggedIn && role === 'Manager' ? <ManagerDashboard /> : <Navigate to="/login" replace />}
         />
         <Route
           path="/training-request"
-          element={role === 'Manager' ? <TrainingRequestForm /> : <Navigate to="/" replace />}
+          element={isLoggedIn && role === 'Manager' ? <TrainingRequestForm /> : <Navigate to="/login" replace />}
         />
         <Route
           path="/admin-dashboard"
-          element={role === 'Admin' ? <AdminDashboard /> : <Navigate to="/" replace />}
+          element={isLoggedIn && role === 'Admin' ? <AdminDashboard /> : <Navigate to="/login" replace />}
         />
         <Route
           path="/assign-course/:id"
-          element={role === 'Admin' ? <AssignCourse /> : <Navigate to="/" replace />}
+          element={isLoggedIn && role === 'Admin' ? <AssignCourse /> : <Navigate to="/login" replace />}
         />
         <Route
           path="/courses"
-          element={role === 'Admin' ? <Courses /> : <Navigate to="/" replace />}
+          element={isLoggedIn && role === 'Admin' ? <Courses /> : <Navigate to="/login" replace />}
         />
         <Route
           path="/employee-progress-tracking"
-          element={role === 'Admin' ? <EmployeeProgressTracking /> : <Navigate to="/" replace />}
+          element={isLoggedIn && role === 'Admin' ? <EmployeeProgressTracking /> : <Navigate to="/login" replace />}
         />
         <Route
           path="/feedback-collection"
-          element={role === 'Admin' ? <FeedbackCollection /> : <Navigate to="/" replace />}
+          element={isLoggedIn && role === 'Admin' ? <FeedbackCollection /> : <Navigate to="/login" replace />}
         />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
