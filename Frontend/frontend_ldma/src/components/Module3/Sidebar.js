@@ -1,7 +1,6 @@
 // Sidebar.js
 import React from 'react';
 import './Sidebar.css';
-import './style.css';
 
 function Sidebar({ onSelectSection }) {
   return (

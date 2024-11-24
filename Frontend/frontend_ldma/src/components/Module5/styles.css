@@ -1,0 +1,56 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+  }
+  
+  .App {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  .table-container {
+    margin: 20px auto;
+    width: 80%;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .reply-button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .reply-button:hover {
+    background-color: #005f73;
+  }
+  
+  .chart {
+    display: inline-block;
+    width: 45%;
+    margin: 10px;
+  }
+  
+  .charts-container h2 {
+    color: #333;
+    margin-top: 40px;
+  }
+  

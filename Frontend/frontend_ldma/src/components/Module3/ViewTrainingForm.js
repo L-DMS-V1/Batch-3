@@ -1,8 +1,11 @@
 import React from 'react';
 
-function ViewTrainingForms({ trainingRequests, onAction }) {
+
+function ViewTrainingForms({ trainingRequests }) {
+  if (!trainingRequests) return <div>Loading...</div>;
+
   return (
-    <div>
+    <div className="admin-page-component">
       <h2>Training Requests</h2>
       <table>
         <thead>
@@ -22,8 +25,8 @@ function ViewTrainingForms({ trainingRequests, onAction }) {
               <td>{request.courseRequested}</td>
               <td>{request.jobDescription}</td>
               <td>
-                <button onClick={() => onAction(index, 'accept')}>Accept</button>
-                <button onClick={() => onAction(index, 'reject')}>Reject</button>
+                <button onClick={() => console.log('Accept button clicked')}>Accept</button>
+                <button onClick={() => console.log('Reject button clicked')}>Reject</button>
               </td>
             </tr>
           ))}

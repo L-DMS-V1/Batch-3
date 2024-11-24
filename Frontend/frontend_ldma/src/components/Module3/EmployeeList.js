@@ -1,8 +1,9 @@
 import React from 'react';
-import './style.css';
 import './EmployeeList.css';
 
 function EmployeeList({ employees }) {
+  if (!employees) return <div>Loading...</div>;
+
   return (
     <div>
       <h2>Employee List</h2>
