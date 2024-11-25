@@ -1,10 +1,6 @@
 import {
   AppstoreOutlined,
   BookOutlined,
-  DollarCircleFilled,
-  DollarOutlined,
-  ShopOutlined,
-  ShoppingCartOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
@@ -42,11 +38,7 @@ function SideMenu() {
             key: "/inventory",
             icon: <BookOutlined />,
           },
-          // {
-          //   label: "Salary Details",
-          //   key: "/orders",
-          //   icon: <DollarOutlined />,
-          // },
+          
           {
             label: "Employee",
             key: "/customers",

@@ -1,0 +1,84 @@
+{
+    "books": [
+      {
+        "title": "Complete Python Bootcamp: Go from zero to hero in Python 3",
+        "price": 99.99,
+        "rating": 4.8,
+        "stock_left": 25,
+        "author": "Jose Portilla",
+        "category": "Python"
+      },
+      {
+        "title": "The Web Developer Bootcamp 2023",
+        "price": 89.99,
+        "rating": 4.7,
+        "stock_left": 30,
+        "author": "Angela Yu",
+        "category": "Web Development"
+      },
+      {
+        "title": "Java Programming Masterclass covering Java 11 & Java 17",
+        "price": 79.99,
+        "rating": 4.6,
+        "stock_left": 15,
+        "author": "Tim Buchalka",
+        "category": "Java"
+      },
+      {
+        "title": "The Complete JavaScript Course 2023: From Zero to Expert!",
+        "price": 89.99,
+        "rating": 4.9,
+        "stock_left": 20,
+        "author": "Jonas Schmedtmann",
+        "category": "JavaScript"
+      },
+      {
+        "title": "Data Science and Machine Learning Bootcamp with R",
+        "price": 79.99,
+        "rating": 4.5,
+        "stock_left": 10,
+        "author": "Jose Portilla",
+        "category": "Data Science"
+      },
+      {
+        "title": "React - The Complete Guide (incl Hooks, React Router, Redux)",
+        "price": 99.99,
+        "rating": 4.8,
+        "stock_left": 18,
+        "author": "Maximilian Schwarzmüller",
+        "category": "React"
+      },
+      {
+        "title": "The Complete SQL Bootcamp: Go from Zero to Hero",
+        "price": 54.99,
+        "rating": 4.6,
+        "stock_left": 22,
+        "author": "Jose Portilla",
+        "category": "SQL"
+      },
+      {
+        "title": "iOS 13 & Swift 5 - The Complete iOS App Development Bootcamp",
+        "price": 99.99,
+        "rating": 4.7,
+        "stock_left": 12,
+        "author": "Angela Yu",
+        "category": "iOS Development"
+      },
+      {
+        "title": "Machine Learning A-Z™: Hands-On Python & R In Data Science",
+        "price": 89.99,
+        "rating": 4.8,
+        "stock_left": 8,
+        "author": "Kirill Eremenko",
+        "category": "Machine Learning"
+      },
+      {
+        "title": "The Complete C# Developer Course",
+        "price": 79.99,
+        "rating": 4.5,
+        "stock_left": 14,
+        "author": "Mosh Hamedani",
+        "category": "C#"
+      }
+    ]
+  }
