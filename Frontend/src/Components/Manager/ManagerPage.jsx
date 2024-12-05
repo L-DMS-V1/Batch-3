@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getRequests } from '../Api';
 import { FaUserCircle } from 'react-icons/fa';
+import CourseList from '../Admin/CourseList';
 
 import Managerrequest from './Managerrequest'; // Import the Managerrequest component
 
@@ -73,7 +74,7 @@ function LearningHub() {
       </div>
 
       {/* Request Stats */}
-      <div className="row g-4 mb-4">
+      <div className="row g-4 mb-4 p-4">
         <div className="col-12 col-md-4">
           <div className="card text-center">
             <div className="card-body">
@@ -111,7 +112,7 @@ function LearningHub() {
       </div>
 
       {/* Requests Table */}
-      <div className="table-responsive">
+      <div className="table-responsive p-2">
         <table className="table table-bordered table-striped table-hover">
           <thead>
             <tr className="table-secondary">

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { createRequest, getAllEmployees } from "../Api";
+import { createRequest } from "../Api";
 import Swal from "sweetalert2";
+import {getAllEmployees} from "../Api";
 
 function Managerrequest() {
   const [formData, setFormData] = useState({
@@ -18,18 +19,18 @@ function Managerrequest() {
   const navigate = useNavigate(); // Navigation hook
 
   // Fetch all employees on component mount
-  // useEffect(() => {
-  //   const fetchEmployees = async () => {
-  //     try {
-  //       const response = await getAllEmployees();
-  //       setEmployees(response); // Assuming response.data contains the employee list
-  //       console.log("From Manger request page" + employees);
-  //     } catch (error) {
-  //       console.error("Failed to fetch employees", error);
-  //     }
-  //   };
-  //   fetchEmployees();
-  // }, []);
+  useEffect(() => {
+    const fetchEmployees = async () => {
+      try {
+        const response = await getAllEmployees();
+        setEmployees(response); // Assuming response.data contains the employee list
+        console.log("From Manger request page" + employees);
+      } catch (error) {
+        console.error("Failed to fetch employees", error);
+      }
+    };
+    fetchEmployees();
+  }, []);
 
   // Handle form field changes
   const handleChange = (e) => {
@@ -38,25 +39,25 @@ function Managerrequest() {
   };
 
   // Handle employee selection from dropdown
-  // const handleEmployeeSelect = (e) => {
-  //   const employeeId = parseInt(e.target.value, 10);
-  //   const selectedEmployee = employees.find((emp) => emp.employeeId === employeeId);
+  const handleEmployeeSelect = (e) => {
+    const employeeId = parseInt(e.target.value, 10);
+    const selectedEmployee = employees.find((emp) => emp.employeeId === employeeId);
 
-  //   if (selectedEmployee && !formData.requiredEmployees.some((emp) => emp.employeeId === employeeId)) {
-  //     setFormData((prev) => ({
-  //       ...prev,
-  //       requiredEmployees: [...prev.requiredEmployees, selectedEmployee],
-  //     }));
-  //   }
-  // };
+    if (selectedEmployee && !formData.requiredEmployees.some((emp) => emp.employeeId === employeeId)) {
+      setFormData((prev) => ({
+        ...prev,
+        requiredEmployees: [...prev.requiredEmployees, selectedEmployee],
+      }));
+    }
+  };
 
   // Handle removal of selected employee
-  // const handleRemoveEmployee = (employeeId) => {
-  //   setFormData((prev) => ({
-  //     ...prev,
-  //     requiredEmployees: prev.requiredEmployees.filter((emp) => emp.employeeId !== employeeId),
-  //   }));
-  // };
+  const handleRemoveEmployee = (employeeId) => {
+    setFormData((prev) => ({
+      ...prev,
+      requiredEmployees: prev.requiredEmployees.filter((emp) => emp.employeeId !== employeeId),
+    }));
+  };
 
   // Submit form data
   const handleSubmit = async (e) => {
@@ -118,7 +119,7 @@ function Managerrequest() {
           ))}
 
           {/* Employee Dropdown */}
-          {/* <div className="mb-3">
+          <div className="mb-3">
             <label htmlFor="employees" className="form-label">Select Employees:</label>
             <select
               id="employees"
@@ -132,10 +133,10 @@ function Managerrequest() {
                 </option>
               ))}
             </select>
-          </div> */}
+          </div>
 
           {/* Selected Employees List */}
-          {/* <div className="mb-3">
+          <div className="mb-3">
             <h5 className="font-medium">Selected Employees:</h5>
             {formData.requiredEmployees.length > 0 ? (
               formData.requiredEmployees.map((emp) => (
@@ -154,9 +155,9 @@ function Managerrequest() {
                 </div>
               ))
             ) : (
-              <p className="text-muted">No employees selected.</p>
+              <p className="text-muted">Please select to add in list</p>
             )}
-          </div> */}
+          </div>
 
           {/* Submit Button */}
           <button

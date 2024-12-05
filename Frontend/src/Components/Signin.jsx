@@ -8,17 +8,35 @@ import 'react-toastify/dist/ReactToastify.css';
 function SignIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({}); 
 
   const navigate = useNavigate();
 
+  const validateForm = () => {
+    const errors = {};
+
+    if (!username.trim()) {
+      errors.username = 'Username is required';
+    }
+
+    if (!password.trim()) {
+      errors.password = 'Password is required';
+    } else if (password.length < 6) {
+      errors.password = 'Password must be at least 6 characters';
+    }
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     try {
       const response = await loginUser(username, password);
-  
       const role = response.role || localStorage.getItem('role'); // Fallback to localStorage
       toast.success('Login successful!');
-  
 
       setTimeout(() => {
         if (role === 'ROLE_ADMIN') {
@@ -32,16 +50,16 @@ function SignIn() {
         }
       }, 2000);
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error('Login failed:', error);
       toast.error(error.response?.data?.message || 'Invalid username or password', {
-        position: "top-right",
+        position: 'top-right',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "colored",
+        theme: 'colored',
         transition: Bounce,
       });
     }
@@ -58,8 +76,9 @@ function SignIn() {
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="form-control"
+              className={`form-control ${errors.username ? 'is-invalid' : ''}`}
             />
+            {errors.username && <div className="invalid-feedback">{errors.username}</div>}
           </div>
           <div className="mb-3">
             <input
@@ -67,8 +86,9 @@ function SignIn() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="form-control"
+              className={`form-control ${errors.password ? 'is-invalid' : ''}`}
             />
+            {errors.password && <div className="invalid-feedback">{errors.password}</div>}
           </div>
           <button
             type="submit"
@@ -81,6 +101,7 @@ function SignIn() {
           <p className="text-muted">Don't have an account? <Link to="/signup" className="text-primary">Sign Up Now!</Link></p>
         </div>
       </div>
+      {/* <ToastContainer /> */}
     </div>
   );
 }
