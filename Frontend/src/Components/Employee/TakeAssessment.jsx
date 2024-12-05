@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getAssessment, submitAssessment } from "../Api";
-import Modal from "./Modal";
 
 const TakeAssessment = () => {
   const location = useLocation();
@@ -10,14 +9,11 @@ const TakeAssessment = () => {
 
   const [assessment, setAssessment] = useState(null);
   const [answers, setAnswers] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [resultData, setResultData] = useState("");
-  const [isPaused, setIsPaused] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // Current question index
   const [timeLeft, setTimeLeft] = useState(0); // Timer state
-  const [pauseModalOpen, setPauseModalOpen] = useState(false); // Pause modal state
+  const [isPaused, setIsPaused] = useState(false); // Pause state
 
-  const timerRef = useRef(null); // Reference for the timer
-  const [isAutoSubmitting, setIsAutoSubmitting] = useState(false); // To avoid duplicate submissions
+  const timerRef = useRef(null);
 
   useEffect(() => {
     const fetchAssessment = async () => {
@@ -41,37 +37,47 @@ const TakeAssessment = () => {
           if (prev > 0) {
             return prev - 1;
           }
-          clearInterval(timerRef.current); // Ensure timer stops
-          return 0; // Prevent negative time
+          clearInterval(timerRef.current);
+          handleSubmit(); // Auto-submit when time runs out
+          return 0;
         });
       }, 1000);
     }
 
-    return () => clearInterval(timerRef.current); // Cleanup on unmount
+    return () => clearInterval(timerRef.current);
   }, [isPaused]);
 
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-
-    // If timer hits 0, trigger submission
-    if (seconds === 0 && !isAutoSubmitting) {
-      setIsAutoSubmitting(true); // Prevent duplicate submission
-      handleSubmit();
-    }
-
     return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
   };
 
-  const handleOptionChange = (questionIndex, option) => {
+  const handleOptionChange = (option) => {
     const updatedAnswers = [...answers];
-    updatedAnswers[questionIndex] = option;
+    updatedAnswers[currentQuestionIndex] = option;
     setAnswers(updatedAnswers);
   };
 
+  const handleNext = () => {
+    if (currentQuestionIndex < assessment.questions.length - 1) {
+      setCurrentQuestionIndex((prev) => prev + 1);
+    }
+  };
+
+  const handleBack = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex((prev) => prev - 1);
+    }
+  };
+
+  const handleEndTest = () => {
+    clearInterval(timerRef.current);
+    handleSubmit();
+  };
+
   const handleSubmit = async () => {
-    setPauseModalOpen(false);
-    clearInterval(timerRef.current); // Stop the timer on submission
+    clearInterval(timerRef.current);
     const submissionData = {
       assessmentId: assessment.assessmentId,
       employeeId: employeeId,
@@ -80,130 +86,68 @@ const TakeAssessment = () => {
 
     try {
       const result = await submitAssessment(submissionData);
-      if (result === "Congratulations!! Assessment Cleared Successfully!!")
-        setResultData("PASS");
-      else setResultData("RETRY");
-      setIsModalOpen(true);
+      navigate("/assessment-result", { state: { result, courseId, employeeId } });
     } catch (error) {
       console.error("Error submitting assessment:", error);
     }
   };
 
-  const handlePause = () => {
-    clearInterval(timerRef.current);
-    setIsPaused(true);
-    setPauseModalOpen(true);
-  };
-
-  const handleResume = () => {
-    setIsPaused(false);
-    setPauseModalOpen(false);
-  };
-
   if (!assessment) return <p>Loading assessment...</p>;
+
+  const currentQuestion = assessment.questions[currentQuestionIndex];
 
   return (
     <div className="container py-5">
-      <h1 className="display-6 mb-4">Assessment: {assessment.course.courseName}</h1>
-      <p className="text-muted mb-2">Duration: {assessment.duration} minutes</p>
-      <p className="text-danger mb-4">Time Remaining: {formatTime(timeLeft)}</p>
-      <div className="mb-4">
-        {assessment.questions.map((question, index) => (
-          <div key={question.questionId} className="card mb-3">
-            <div className="card-body">
-              <h5 className="card-title">
-                {index + 1}. {question.questionText}
-              </h5>
-              <div className="mt-3">
-                {["A", "B", "C", "D"].map((option, i) => (
-                  <div key={i} className="form-check">
-                    <input
-                      type="radio"
-                      name={`question-${index}`}
-                      className="form-check-input"
-                      value={question[`option${option}`]}
-                      checked={answers[index] === question[`option${option}`]}
-                      onChange={() => handleOptionChange(index, question[`option${option}`])}
-                    />
-                    <label className="form-check-label">{question[`option${option}`]}</label>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h1 className="display-6">Assessment: {assessment.course.courseName}</h1>
+        <button onClick={handleEndTest} className="btn btn-danger">
+          End Test
+        </button>
       </div>
+      <p className="text-muted">Duration: {assessment.duration} minutes</p>
+      <p className="text-danger">Time Remaining: {formatTime(timeLeft)}</p>
+
+      <div className="card mb-4">
+        <div className="card-body">
+          <h5 className="card-title">
+            {currentQuestionIndex + 1}. {currentQuestion.questionText}
+          </h5>
+          <div className="mt-3">
+            {["A", "B", "C", "D"].map((option, i) => (
+              <div key={i} className="form-check">
+                <input
+                  type="radio"
+                  name={`question-${currentQuestionIndex}`}
+                  className="form-check-input"
+                  value={currentQuestion[`option${option}`]}
+                  checked={answers[currentQuestionIndex] === currentQuestion[`option${option}`]}
+                  onChange={() => handleOptionChange(currentQuestion[`option${option}`])}
+                />
+                <label className="form-check-label">{currentQuestion[`option${option}`]}</label>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <div className="d-flex gap-3">
         <button
-          onClick={handleSubmit}
-          className="btn btn-primary"
+          onClick={handleBack}
+          disabled={currentQuestionIndex === 0}
+          className="btn btn-secondary"
         >
-          Submit
+          Back
         </button>
-        <button
-          onClick={handlePause}
-          className="btn btn-warning"
-        >
-          Pause
-        </button>
+        {currentQuestionIndex === assessment.questions.length - 1 ? (
+          <button onClick={handleSubmit} className="btn btn-primary">
+            Submit
+          </button>
+        ) : (
+          <button onClick={handleNext} className="btn btn-primary">
+            Next
+          </button>
+        )}
       </div>
-
-      {/* Result Modal */}
-      {isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)}>
-          <div className="card">
-            <div className="card-body">
-              <h2 className="h5 mb-3">Assessment Results</h2>
-              <p>Result: {resultData}</p>
-              {resultData === "PASS" ? (
-                <button
-                  onClick={() =>
-                    navigate("/givefeedback", {
-                      state: { courseId, employeeId },
-                    })
-                  }
-                  className="btn btn-success mt-3"
-                >
-                  Give Feedback
-                </button>
-              ) : (
-                <button
-                  onClick={() => navigate("/employee")}
-                  className="btn btn-danger mt-3"
-                >
-                  Return to Home
-                </button>
-              )}
-            </div>
-          </div>
-        </Modal>
-      )}
-
-      {/* Pause Modal */}
-      {pauseModalOpen && (
-        <Modal onClose={() => setPauseModalOpen(false)}>
-          <div className="card">
-            <div className="card-body">
-              <h2 className="h5 mb-3">Paused</h2>
-              <p className="mb-3">Do you want to resume or end the test?</p>
-              <div className="d-flex gap-3">
-                <button
-                  onClick={handleResume}
-                  className="btn btn-success"
-                >
-                  Resume
-                </button>
-                <button
-                  onClick={handleSubmit}
-                  className="btn btn-danger"
-                >
-                  End Test
-                </button>
-              </div>
-            </div>
-          </div>
-        </Modal>
-      )}
     </div>
   );
 };
